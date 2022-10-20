@@ -1,0 +1,52 @@
+{
+  "name": "electron-react-vite-template",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./dist/main.cjs",
+  "build": {
+    "appId": "test.electronreactvite.app",
+    "productName": "Electron React Vite",
+    "directories": {
+      "app": ".",
+      "output": "out",
+      "buildResources": "build-res"
+    },
+    "files": [
+      "package.json",
+      "app/**/*",
+      "node_modules",
+      "dist/**/*"
+    ],
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "scripts": {
+    "vite-dev": "vite",
+    "vite-build": "vite build",
+    "vite-preview": "vite preview",
+    "esbuild-cjs": "esbuild main.js --format=cjs --outfile=./dist/main.cjs",
+    "electron-dev": "npm run esbuild-cjs && cross-env IS_IN_DEVELOPMENT=true electron .",
+    "electron-build": "npm run esbuild-cjs && electron-packager --out=release . --overwrite",
+    "electron-builder": "npm run esbuild-cjs && electron-builder --win ",
+    "start": "concurrently -k \"npm run vite-dev\"  \"npm:electron-dev\"",
+    "build": "npm run vite-build && npm run electron-builder"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^2.1.0",
+    "concurrently": "^7.4.0",
+    "cross-env": "^7.0.3",
+    "electron": "^21.1.1",
+    "electron-builder": "^23.6.0",
+    "electron-packager": "^16.0.0",
+    "esbuild": "^0.15.11",
+    "vite": "^3.1.0"
+  }
+}
